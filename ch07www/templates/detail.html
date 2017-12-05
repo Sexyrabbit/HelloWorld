@@ -1,0 +1,28 @@
+<!-- detail.html -->
+{% extends "base.html" %}
+{% block title %}{{product.nickname | default:"Can't find this product"}}{% endblock %}
+{% block content %}
+<div class='container' align=center>
+{% if product %}
+<table>
+  <tr><td align=center><h3>{{ product.nickname }}</h3></td></tr>
+  <tr><td align=center>{{ product.description }}</td></tr>
+  <tr><td align=center>Produced at: {{ product.year }}</td></tr>
+  <tr><td align=center>Sell at: $ {{ product.price }}</td></tr>
+  {% for image in images %}
+    {% if forloop.first %}
+      <tr><td align=center>
+    {% endif %}
+      <img src='{{ image.url }}' width=350><br>
+    {% if forloop.last %}
+      </td></tr>
+    {% endif %}
+  {% empty %}
+    <tr><td align=center>We are currently rich so no need to sell</td></tr>
+  {% endfor %}
+</table>
+{% else %}
+  <h2>We don't care to purchase this product</h2>
+{% endif %}
+</div>
+{% endblock %}
